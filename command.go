@@ -17,6 +17,8 @@ func onCommand(aSession *discordgo.Session, aInteraction *discordgo.InteractionC
 		onHelpCommand(aSession, aInteraction)
 	case "random":
 		onRandomCommand(aSession, aInteraction)
+	case "select":
+		onSelectCommand(aSession, aInteraction)
 	default:
 		break
 	}
@@ -30,6 +32,7 @@ func onHelpCommand(aSession *discordgo.Session, aInteraction *discordgo.Interact
 		Description: "任意のn面ダイスを複数個同時に振ることができます\n\n" +
 			"**__各種コマンド__**\n\n" +
 			"**random**\n`/random mDn`でn面ダイスをm個振ります\n" +
+			"**select**\n`/select v1 v2 ... vn`でv1からvnのうち1つをランダムに出力します\n" +
 			"**help**\nヘルプを表示します",
 		Footer: &tFooter,
 	}
@@ -91,6 +94,33 @@ func onRandomCommand(aSession *discordgo.Session, aInteraction *discordgo.Intera
 
 	tResultStr := strings.Trim(strings.Join(strings.Fields(fmt.Sprint(tResults)), ", "), "[]")
 	tResponse := fmt.Sprintf("result of %dd%d: [%s] (sum: %d)", m, n, tResultStr, tTotal)
+
+	aSession.InteractionRespond(aInteraction.Interaction, &discordgo.InteractionResponse{
+		Type: discordgo.InteractionResponseChannelMessageWithSource,
+		Data: &discordgo.InteractionResponseData{
+			Content: tResponse,
+		},
+	})
+}
+
+func onSelectCommand(aSession *discordgo.Session, aInteraction *discordgo.InteractionCreate) {
+	tArgs := aInteraction.ApplicationCommandData().Options
+	if len(tArgs) != 1 {
+		aSession.InteractionRespond(aInteraction.Interaction, &discordgo.InteractionResponse{
+			Type: discordgo.InteractionResponseChannelMessageWithSource,
+			Data: &discordgo.InteractionResponseData{
+				Content: "Error: input arguments",
+			},
+		})
+		return
+	}
+
+	tParts := strings.Split(tArgs[0].StringValue(), " ")
+	if len(tParts) == 1 {
+		tParts = strings.Split(tArgs[0].StringValue(), "　")
+	}
+	tIndex := rand.Intn(len(tParts))
+	tResponse := tParts[tIndex]
 
 	aSession.InteractionRespond(aInteraction.Interaction, &discordgo.InteractionResponse{
 		Type: discordgo.InteractionResponseChannelMessageWithSource,

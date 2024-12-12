@@ -66,6 +66,18 @@ func registerCommands(tDG *discordgo.Session) {
 				},
 			},
 		},
+		{
+			Name:        "select",
+			Description: "与えられた文字列のうち1つだけをランダムに出力します",
+			Options: []*discordgo.ApplicationCommandOption{
+				{
+					Type:        discordgo.ApplicationCommandOptionString,
+					Name:        "arguments",
+					Description: "スペース区切りで複数の文字列を入力",
+					Required:    true,
+				},
+			},
+		},
 	}
 
 	for _, tCommand := range tCommands {
