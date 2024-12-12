@@ -29,7 +29,7 @@ func onHelpCommand(aSession *discordgo.Session, aInteraction *discordgo.Interact
 		Title: "機能説明",
 		Description: "任意のn面ダイスを複数個同時に振ることができます\n\n" +
 			"**__各種コマンド__**\n\n" +
-			"**random**\n`/random mdn`でn面ダイスをm個振ります\n" +
+			"**random**\n`/random mDn`でn面ダイスをm個振ります\n" +
 			"**help**\nヘルプを表示します",
 		Footer: &tFooter,
 	}
