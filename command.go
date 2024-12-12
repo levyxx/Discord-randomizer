@@ -52,7 +52,7 @@ func onRandomCommand(aSession *discordgo.Session, aInteraction *discordgo.Intera
 		aSession.InteractionRespond(aInteraction.Interaction, &discordgo.InteractionResponse{
 			Type: discordgo.InteractionResponseChannelMessageWithSource,
 			Data: &discordgo.InteractionResponseData{
-				Content: "Error: input mdn format (ex. 2D6)",
+				Content: "Error: input mdn format (ex. 2d6)",
 			},
 		})
 		return
@@ -63,7 +63,7 @@ func onRandomCommand(aSession *discordgo.Session, aInteraction *discordgo.Intera
 		aSession.InteractionRespond(aInteraction.Interaction, &discordgo.InteractionResponse{
 			Type: discordgo.InteractionResponseChannelMessageWithSource,
 			Data: &discordgo.InteractionResponseData{
-				Content: "Error: input mdn format (ex. 2D6)",
+				Content: "Error: input mdn format (ex. 2d6)",
 			},
 		})
 		return
@@ -75,7 +75,7 @@ func onRandomCommand(aSession *discordgo.Session, aInteraction *discordgo.Intera
 		aSession.InteractionRespond(aInteraction.Interaction, &discordgo.InteractionResponse{
 			Type: discordgo.InteractionResponseChannelMessageWithSource,
 			Data: &discordgo.InteractionResponseData{
-				Content: "Error: m and n must be positive integer (ex. 2D6)",
+				Content: "Error: m and n must be positive integer (ex. 2d6)",
 			},
 		})
 		return
@@ -90,7 +90,7 @@ func onRandomCommand(aSession *discordgo.Session, aInteraction *discordgo.Intera
 	}
 
 	tResultStr := strings.Trim(strings.Join(strings.Fields(fmt.Sprint(tResults)), ", "), "[]")
-	tResponse := fmt.Sprintf("result of %dD%d: [%s] (sum: %d)", m, n, tResultStr, tTotal)
+	tResponse := fmt.Sprintf("result of %dd%d: [%s] (sum: %d)", m, n, tResultStr, tTotal)
 
 	aSession.InteractionRespond(aInteraction.Interaction, &discordgo.InteractionResponse{
 		Type: discordgo.InteractionResponseChannelMessageWithSource,

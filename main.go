@@ -56,12 +56,12 @@ func registerCommands(tDG *discordgo.Session) {
 		},
 		{
 			Name:        "random",
-			Description: "任意のn面ダイスをm個振ります (例: /random 2D6)",
+			Description: "任意のn面ダイスをm個振ります (例: /random 2d6)",
 			Options: []*discordgo.ApplicationCommandOption{
 				{
 					Type:        discordgo.ApplicationCommandOptionString,
 					Name:        "mdn",
-					Description: "ダイスの形式（例: 2D6）",
+					Description: "ダイスの形式（例: 2d6）",
 					Required:    true,
 				},
 			},
