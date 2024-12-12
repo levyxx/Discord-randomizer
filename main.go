@@ -60,7 +60,7 @@ func registerCommands(tDG *discordgo.Session) {
 			Options: []*discordgo.ApplicationCommandOption{
 				{
 					Type:        discordgo.ApplicationCommandOptionString,
-					Name:        "mdn",
+					Name:        "mDn",
 					Description: "ダイスの形式（例: 2D6）",
 					Required:    true,
 				},
