@@ -90,7 +90,7 @@ func onRandomCommand(aSession *discordgo.Session, aInteraction *discordgo.Intera
 	}
 
 	tResultStr := strings.Trim(strings.Join(strings.Fields(fmt.Sprint(tResults)), ", "), "[]")
-	tResponse := fmt.Sprintf("result of %dd%d: [%s] (sum: %d)", m, n, tResultStr, tTotal)
+	tResponse := fmt.Sprintf("result of %dD%d: [%s] (sum: %d)", m, n, tResultStr, tTotal)
 
 	aSession.InteractionRespond(aInteraction.Interaction, &discordgo.InteractionResponse{
 		Type: discordgo.InteractionResponseChannelMessageWithSource,
