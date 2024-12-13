@@ -21,6 +21,8 @@ func onMessageCreate(aSession *discordgo.Session, aMessage *discordgo.MessageCre
 		onRandom(aSession, aMessage, aMessage.Content)
 	} else if strings.HasPrefix(aMessage.Content, "!select") {
 		onSelect(aSession, aMessage, aMessage.Content)
+	} else if strings.HasPrefix(aMessage.Content, "!sort") {
+		onSort(aSession, aMessage, aMessage.Content)
 	}
 }
 
@@ -28,6 +30,7 @@ func onHelp(aSession *discordgo.Session, aMessage *discordgo.MessageCreate) {
 	tResponse := "機能説明\n\n" +
 		"**!random**\n`!random mdn`でn面ダイスをm個振ります\n" +
 		"**!select**\n`!select v1 v2 ... vn`でv1からvnのうち1つをランダムに出力します\n" +
+		"**!sort**\n`!sort v1 v2 ... v3`でv1からvnをランダムに並び替えて出力します\n" +
 		"**!help randomizer**\nヘルプを表示します"
 
 	_, err := aSession.ChannelMessageSend(aMessage.ChannelID, tResponse)
@@ -64,8 +67,7 @@ func onRandom(aSession *discordgo.Session, aMessage *discordgo.MessageCreate, aS
 	tResultStr := strings.Trim(strings.Join(strings.Fields(fmt.Sprint(tResults)), ", "), "[]")
 	tResponse := fmt.Sprintf("Result of %dd%d: [%s] (sum: %d)", m, n, tResultStr, tTotal)
 
-	_, tError := aSession.ChannelMessageSend(aMessage.ChannelID, tResponse)
-	if tError != nil {
+	if _, tError := aSession.ChannelMessageSend(aMessage.ChannelID, tResponse); tError != nil {
 		log.Printf("Error sending random message: %+v\n", tError)
 	}
 }
@@ -77,8 +79,23 @@ func onSelect(aSession *discordgo.Session, aMessage *discordgo.MessageCreate, aS
 	tIndex := rand.Intn(len(tParts))
 	tResponse := fmt.Sprintf("Selected: %s", tParts[tIndex])
 
-	_, tError := aSession.ChannelMessageSend(aMessage.ChannelID, tResponse)
-	if tError != nil {
+	if _, tError := aSession.ChannelMessageSend(aMessage.ChannelID, tResponse); tError != nil {
 		log.Printf("Error sending select message: %+v\n", tError)
+	}
+}
+
+func onSort(aSession *discordgo.Session, aMessage *discordgo.MessageCreate, aStr string) {
+	tStr := aStr[5:]
+	tParts := strings.Fields(tStr)
+
+	for i := len(tParts) - 1; i > 0; i-- {
+		tRandomIndex := rand.Intn(i)
+		tParts[i], tParts[tRandomIndex] = tParts[tRandomIndex], tParts[i]
+	}
+
+	tResponse := fmt.Sprintf("Randomly Sorted: %s", tParts)
+
+	if _, tError := aSession.ChannelMessageSend(aMessage.ChannelID, tResponse); tError != nil {
+		log.Printf("Error randomly sorting: %+v\n", tError)
 	}
 }

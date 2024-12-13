@@ -19,6 +19,8 @@ func onCommand(aSession *discordgo.Session, aInteraction *discordgo.InteractionC
 		onRandomCommand(aSession, aInteraction)
 	case "select":
 		onSelectCommand(aSession, aInteraction)
+	case "sort":
+		onSortCommand(aSession, aInteraction)
 	default:
 		break
 	}
@@ -126,6 +128,34 @@ func onSelectCommand(aSession *discordgo.Session, aInteraction *discordgo.Intera
 	}
 	tResponse += "\nresult: "
 	tResponse += tParts[tIndex]
+
+	aSession.InteractionRespond(aInteraction.Interaction, &discordgo.InteractionResponse{
+		Type: discordgo.InteractionResponseChannelMessageWithSource,
+		Data: &discordgo.InteractionResponseData{
+			Content: tResponse,
+		},
+	})
+}
+
+func onSortCommand(aSession *discordgo.Session, aInteraction *discordgo.InteractionCreate) {
+	tArgs := aInteraction.ApplicationCommandData().Options
+	if len(tArgs) != 1 {
+		aSession.InteractionRespond(aInteraction.Interaction, &discordgo.InteractionResponse{
+			Type: discordgo.InteractionResponseChannelMessageWithSource,
+			Data: &discordgo.InteractionResponseData{
+				Content: "Error: input arguments",
+			},
+		})
+		return
+	}
+	tParts := strings.Fields(tArgs[0].StringValue())
+
+	for i := len(tParts) - 1; i > 0; i-- {
+		tRandomIndex := rand.Intn(i)
+		tParts[i], tParts[tRandomIndex] = tParts[tRandomIndex], tParts[i]
+	}
+
+	tResponse := fmt.Sprintf("Randomly Sorted: %s", tParts)
 
 	aSession.InteractionRespond(aInteraction.Interaction, &discordgo.InteractionResponse{
 		Type: discordgo.InteractionResponseChannelMessageWithSource,
