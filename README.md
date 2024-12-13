@@ -14,15 +14,17 @@ v1.0
 
 2. 適当な名前をつけて`Create`をクリック
 
-3. `SETTINGS`カテゴリの`OAuth2`を選択し、`OAuth2 URL Generator`から`bot`を選択する。
+3. `SETTINGS`カテゴリの`Installation`を選択し、画面最下部の`Guild Install`から`SCOPES`に`bot`を追加し、`PERMISSIONS`に`Send Messages`を追加する。
 
-4. 画面下部に`BOT PERMISSIONS`が表示されるので、`Send Messages`にチェックを入れる。
+4.  `SETTINGS`カテゴリの`Bot`を選択し、`MESSAGE CONTENT INTENT`を有効にする。
 
-5. `SETTINGS`カテゴリの`Installation`を選択し、画面最下部の`Guild Install`から`SCOPES`に`bot`を追加し、`PERMISSIONS`に`Send Messages`を追加する。
+5. `SETTINGS`カテゴリの`OAuth2`を選択し、`OAuth2 URL Generator`から`bot`を選択する。
 
-6. 下に表示されている`GENERATED URL`に表示されているURLをコピーして適当なWEBで開ければDiscordBotをサーバーに追加できる。
+6. 画面下部に`BOT PERMISSIONS`が表示されるので、`View Channels`, `Send Messages`, `Read Message History`にチェックを入れる。 
 
-7. `SETTINGS`カテゴリの`Bot`を選択し、表示されている`TOKEN`を保存しておく。なければ`Reset Token`をクリックして再生成する。
+7. 下に表示されている`GENERATED URL`に表示されているURLをコピーして適当なWEBで開ければDiscordBotをサーバーに追加できる。
+
+8. `SETTINGS`カテゴリの`Bot`を選択し、表示されている`TOKEN`を保存しておく。なければ`Reset Token`をクリックして再生成する。
 
 ### .envファイルの設定
 
@@ -34,7 +36,7 @@ DISCORD_TOKEN=xxx
 
 |名称|内容|
 |--|--|
-|DISCORD_TOKEN|DiscordBotのトークン|
+|DISCORD_TOKEN|DiscordBotのトークン。DiscordBot作成手順の8.で保存したもの。|
 
 ## 使い方
 
