@@ -72,7 +72,7 @@ generateResolvConf = false
 
 この設定を行うことによって一度実行を止めてもすぐに再開することが可能になる。
 
-以後WSLからのログアウト後に実行したい場合は``sudo nano /etc/resolv.conf`で開いたファイルに以下の内容を書き込んでから実行すれば良い。
+以後WSLからのログアウト後に実行したい場合は`sudo nano /etc/resolv.conf`で開いたファイルに以下の内容を書き込んでから実行すれば良い。
 
 ```
 nameserver 8.8.8.8
