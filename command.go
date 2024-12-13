@@ -115,12 +115,17 @@ func onSelectCommand(aSession *discordgo.Session, aInteraction *discordgo.Intera
 		return
 	}
 
-	tParts := strings.Split(tArgs[0].StringValue(), " ")
-	if len(tParts) == 1 {
-		tParts = strings.Split(tArgs[0].StringValue(), "　")
-	}
+	tParts := strings.Fields(tArgs[0].StringValue())
 	tIndex := rand.Intn(len(tParts))
-	tResponse := tParts[tIndex]
+	tResponse := "selected from "
+	for i := 0; i < len(tParts); i++ {
+		tResponse += tParts[i]
+		if i != len(tParts)-1 {
+			tResponse += ", "
+		}
+	}
+	tResponse += "\nresult: "
+	tResponse += tParts[tIndex]
 
 	aSession.InteractionRespond(aInteraction.Interaction, &discordgo.InteractionResponse{
 		Type: discordgo.InteractionResponseChannelMessageWithSource,
