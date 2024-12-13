@@ -34,6 +34,9 @@ func main() {
 		return
 	}
 
+	// メッセージ内容を受信するIntentを追加
+	tDG.Identify.Intents = discordgo.IntentsGuildMessages | discordgo.IntentsDirectMessages
+
 	tError = tDG.Open()
 	if tError != nil {
 		log.Printf("%+v\n", errors.Wrap(tError, "failed to open connection"))
@@ -44,6 +47,7 @@ func main() {
 
 	registerCommands(tDG)
 	tDG.AddHandler(onCommand)
+	tDG.AddHandler(onMessageCreate)
 
 	select {}
 }
